@@ -2,64 +2,56 @@
 #include <iostream>
 #include <string.h>
 #include <conio.h>
-#include <ctime>
 
+#include "common.h"
+#include "hotelManagement.cpp"
 #include "room.cpp"
 
 #define MAX 100
 
 using namespace std;
 
-void manageRooms()
-{
-    int opt;
-    cout << "\n1. Add Rooms";
-    cout << "\n2. Check-In Room";
-    cout << "\n3. Available Rooms";
-    cout << "\n4. Search Customer";
-    cout << "\n5. Check-Out Room";
-    cout << "\n\nEnter Option: ";
+// TODO:
+const status Room::default_status = status::status_clean;
+const double Room::default_price = 100;
+const bool Room::default_is_smoking = false;
+const bool Room::default_is_wifi = false;
 
-     switch (opt)
-        {
-        case 1:
-            manageRooms();
-            break;
-        default:
-            cout << "\nPlease Enter correct option";
-            break;
-        }
-};
+
+int NO_OF_ROOMS = 0;
+Room rooms[50];
 
 int main()
 {
-    // class HotelManagement hm;
-    int NO_OF_ROOMS = 10;
+    class HotelManagement hm;
     int i, j, opt, rno;
     char ch;
     char pname[100];
-    Room rooms[10];
 
-    for (i = 0; i < 10; i++)
-    {
-        rooms[i] = rooms[i].addRoom(i);
-        rooms[i].displayRoom(rooms[i]);
-    }
+    // NO_OF_ROOMS = 0;
+    // Room rooms[50];
+    
+
+    // for (i = 0; i < 10; i++)
+    // {
+    //     rooms[i] = rooms[i].addRoom(i);
+    //     rooms[i].displayRoom(rooms[i]);
+    // }
 
     do
     {
         system("cls");
         cout << "######## Hotel Management #########\n";
         cout << "\n1. Manage Rooms";
-        cout << "\n4. Search Customer";
-        cout << "\n6. Guest Summary Report";
-        cout << "\n7. Exit";
+        cout << "\n2. Search Customer";
+        cout << "\n3. Guest Summary Report";
+        cout << "\n4. Exit";
         cout << "\n\nEnter Option: ";
         cin >> opt;
         switch (opt)
         {
         case 1:
-            manageRooms();
+            hm.manageRooms();
             break;
         case 2:
             if (NO_OF_ROOMS == 0)

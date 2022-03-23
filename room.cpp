@@ -1,11 +1,8 @@
 #include <iostream>
 
+#include "common.h"
 #include "room.h"
-
-const status Room::default_status = status::status_clean;
-const double Room::default_price = 100;
-const bool Room::default_is_smoking = false;
-const bool Room::default_is_wifi = false;
+#include <ctime>
 
 // Room::Room(int room_number,
 //            int capacity)
@@ -16,24 +13,29 @@ const bool Room::default_is_wifi = false;
 
 Room Room::addRoom(int rno)
 {
-    Room room;
+    rooms[rno].room_number = rno;
+    rooms[rno].st = status::status_clean;
+    rooms[rno].bed = bed_type::bed_type_single;
+    rooms[rno].check_in_date = 0;
+    rooms[rno].check_out_date = 0;
+    rooms[rno].price = 100;
 
     cout << "\nWifi (0 = false, 1 = true): ";
-    cin >> room.is_wifi;
+    cin >> rooms[rno].is_wifi;
 
     cout << "\nCapacity: ";
-    cin >> room.capacity;
+    cin >> rooms[rno].capacity;
 
     cout << "\nRoom Added Successfully!";
 
-    return room;
+    return rooms[rno];
 }
 
-void Room::displayRoom(Room room)
+void Room::displayRoom()
 {
-    cout << "\nRoom Number: " << room.room_number;
+    cout << "\nRoom Number: " << room_number;
 
-    if (room.is_wifi)
+    if (is_wifi)
     {
         cout << "\nWifi provided";
     }
@@ -42,7 +44,7 @@ void Room::displayRoom(Room room)
         cout << "\nWifi not provided";
     }
 
-    switch (room.st)
+    switch (st)
     {
     case status::status_clean:
     {
@@ -66,7 +68,7 @@ void Room::displayRoom(Room room)
     }
     };
 
-    switch (room.bed)
+    switch (bed)
     {
     case bed_type::bed_type_single:
     {
@@ -85,12 +87,12 @@ void Room::displayRoom(Room room)
     }
     };
 
-    cout << "\nCheck In Date: " << room.check_in_date;
-    cout << "\nCheck Out Date: " << room.check_out_date;
+    cout << "\nCheck In Date: " << check_in_date;
+    cout << "\nCheck Out Date: " << check_out_date;
 
-    cout << "\nStaff In Charge: " << room.staff_in_charge;
-    cout << "\nPrice: " << room.price;
-    cout << "\nCapacity: " << room.capacity;
+    cout << "\nStaff In Charge: " << staff_in_charge;
+    cout << "\nPrice: " << price;
+    cout << "\nCapacity: " << capacity << endl;
 }
 
 void Room::setCapacity(int cap)

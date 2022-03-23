@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PACKAGE_H
-#define PACKAGE_H
+#ifndef ROOM_H
+#define ROOM_H
 
 #include <string>
 
@@ -42,13 +42,12 @@ private:
 
 public:
     Room(){};
-    Room(const status default_status,const double default_price, const bool default_is_smoking, const bool default_is_wifi);
     void search(int);
     // class Customer cust;
     Room addRoom(int);
 
     void deleteRoom(int);
-    void displayRoom(Room);
+    void displayRoom();
 
     // bool getIsWifi();
     // void setIsWifi();
