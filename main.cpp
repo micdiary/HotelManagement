@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
-#include <conio.h>
+// #include <conio.h>
 
 #include "common.h"
+#include "hotelManagement.h"
+#include "room.h"
+
 #include "hotelManagement.cpp"
 #include "room.cpp"
 
@@ -11,12 +14,15 @@
 
 using namespace std;
 
-// TODO:
 const status Room::default_status = status::status_clean;
+const bed_type Room::default_bed_type = bed_type::bed_type_single;
+const time_t Room::default_check_in_date = 0;
+const time_t Room::default_check_out_date = 0;
+const string Room::default_staff_in_charge = "NOBODY";
+const string Room::default_name_occ = "NULL";
 const double Room::default_price = 100;
 const bool Room::default_is_smoking = false;
 const bool Room::default_is_wifi = false;
-
 
 int NO_OF_ROOMS = 0;
 Room rooms[50];
@@ -27,16 +33,6 @@ int main()
     int i, j, opt, rno;
     char ch;
     char pname[100];
-
-    // NO_OF_ROOMS = 0;
-    // Room rooms[50];
-    
-
-    // for (i = 0; i < 10; i++)
-    // {
-    //     rooms[i] = rooms[i].addRoom(i);
-    //     rooms[i].displayRoom(rooms[i]);
-    // }
 
     do
     {
@@ -76,41 +72,12 @@ int main()
             }
             break;
         case 4:
-            if (NO_OF_ROOMS == 0)
-            {
-                cout << "\nRooms are not available.\nPlease add the rooms first.";
-                cin >> opt;
-            }
-            else
-            {
-                cout << "Enter Customer Name: ";
-                cin >> pname;
-                // hm.searchCustomer(pname);
-            }
-            break;
-        case 5:
-            if (NO_OF_ROOMS == 0)
-            {
-                cout << "\nRooms are not available.\nPlease add the rooms first.";
-                cin >> opt;
-            }
-            else
-            {
-                cout << "Enter Room Number : ";
-                cin >> rno;
-                // hm.checkOut(rno);
-            }
-            break;
-        case 6:
-            // hm.guestSummaryReport();
-            break;
-        case 7:
-            cout << "\nTHANK YOU! FOR USING SOFTWARE";
+            cout << "\nEXITING";
             break;
         default:
             cout << "\nPlease Enter correct option";
             break;
         }
-    } while (opt != 7);
-    cin >> opt;
+    } while (opt != 4);
+    return 0;
 }

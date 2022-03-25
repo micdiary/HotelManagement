@@ -4,31 +4,38 @@
 #include "room.h"
 #include <ctime>
 
-// Room::Room(int room_number,
-//            int capacity)
-// {
-//     this->room_number = room_number;
-//     this->capacity = capacity;
-// }
+Room::Room(int room_number, bool is_wifi, int capacity,
+           status status, bed_type bed_type,
+           time_t check_in_date, time_t check_out_date,
+           string staff_in_charge, string name_occ, double price)
+{
+    this->room_number = room_number;
+    this->is_wifi = is_wifi;
+    this->capacity = capacity;
+    this->st = status;
+    this->bed = bed_type;
+    this->check_in_date = check_in_date;
+    this->check_out_date = check_out_date;
+    this->staff_in_charge = staff_in_charge;
+    this->name_occ = name_occ;
+    this->price = price;
+}
 
 Room Room::addRoom(int rno)
 {
-    rooms[rno].room_number = rno;
-    rooms[rno].st = status::status_clean;
-    rooms[rno].bed = bed_type::bed_type_single;
-    rooms[rno].check_in_date = 0;
-    rooms[rno].check_out_date = 0;
-    rooms[rno].price = 100;
+    bool wifi;
+    int capacity;
 
     cout << "\nWifi (0 = false, 1 = true): ";
-    cin >> rooms[rno].is_wifi;
+    cin >> wifi;
 
     cout << "\nCapacity: ";
-    cin >> rooms[rno].capacity;
+    cin >> capacity;
 
+    Room room(rno, wifi, capacity);
     cout << "\nRoom Added Successfully!";
 
-    return rooms[rno];
+    return room;
 }
 
 void Room::displayRoom()

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 
 #include "hotelManagement.h"
 #include "room.h"
@@ -10,7 +11,8 @@ void HotelManagement::manageRooms()
     int opt;
     do
     {
-        cout << "\n1. Add Rooms";
+        system("cls");
+        cout << "1. Add Rooms";
         cout << "\n2. Check-In Room";
         cout << "\n3. Available Rooms";
         cout << "\n4. Search Customer";
@@ -28,15 +30,16 @@ void HotelManagement::manageRooms()
             break;
         }
     } while (opt != 6);
-    cin >> opt;
 }
 
 void HotelManagement::addRoomsOption()
 {
     int opt;
+    Room temp_room;
     do
     {
-        cout << "\n1. Basic Room";
+        system("cls");
+        cout << "1. Basic Room";
         cout << "\n2. Premium Room";
         cout << "\n3. Double Rooms";
         cout << "\n4. VIP Room";
@@ -47,7 +50,8 @@ void HotelManagement::addRoomsOption()
         switch (opt)
         {
         case 1:
-            rooms[NO_OF_ROOMS].addRoom(NO_OF_ROOMS);
+            temp_room = temp_room.addRoom(NO_OF_ROOMS);
+            rooms[NO_OF_ROOMS] = temp_room;
             rooms[NO_OF_ROOMS].displayRoom();
             NO_OF_ROOMS++;
             break;
@@ -56,5 +60,4 @@ void HotelManagement::addRoomsOption()
             break;
         }
     } while (opt != 5);
-    cin >> opt;
 }
