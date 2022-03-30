@@ -23,16 +23,14 @@ Room::Room(int room_number, bool is_wifi, int capacity,
 
 Room Room::addRoom(int rno)
 {
+    int opt;
     bool wifi;
     int capacity;
 
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
-    cout << "\nCapacity: ";
-    cin >> capacity;
-
-    Room room(rno, wifi, capacity);
+    Room room(rno, wifi);
     cout << "\nRoom Added Successfully!";
 
     return room;
@@ -105,4 +103,54 @@ void Room::displayRoom()
 void Room::setCapacity(int cap)
 {
     this->capacity = cap;
+}
+
+int Room::getRoomNo()
+{
+    return room_number;
+}
+
+status Room::getRoomStatus()
+{
+    return st;
+}
+
+bed_type Room::getBedType()
+{
+    return bed;
+}
+
+time_t Room::getCheckInDate()
+{
+    return check_in_date;
+}
+
+time_t Room::getCheckOutDate()
+{
+    return check_out_date;
+}
+
+string Room::getStaffInCharge()
+{
+    return staff_in_charge;
+}
+
+int Room::getCapacity()
+{
+    return capacity;
+}
+
+double Room::getPrice()
+{
+    return price;
+}
+
+string Room::getNameOcc()
+{
+    return name_occ;
+}
+
+bool Room::getIsWifi()
+{
+    return is_wifi;
 }

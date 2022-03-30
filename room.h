@@ -9,7 +9,7 @@ using namespace std;
 
 enum class status
 {
-    status_clean = 0,
+    status_clean,
     status_booked,
     status_in_use,
     status_maintenance
@@ -27,8 +27,8 @@ class Room
 private:
     int room_number;
     bool is_wifi;
-    int capacity;
 
+    int capacity;
     status st;
     bed_type bed;
     time_t check_in_date;
@@ -37,6 +37,8 @@ private:
     string name_occ;
     double price;
 
+public:
+    const static int default_capacity;
     const static status default_status;
     const static bed_type default_bed_type;
     const static time_t default_check_in_date;
@@ -48,10 +50,8 @@ private:
     const static bool default_is_smoking;
     const static bool default_is_wifi;
 
-
-public:
     Room(){};
-    Room(int, bool, int, const status = default_status, const bed_type = default_bed_type,
+    Room(int, bool, const int = default_capacity, const status = default_status, const bed_type = default_bed_type,
          const time_t = default_check_in_date, const time_t = default_check_out_date,
          const string = default_staff_in_charge, const string = default_name_occ, const double = default_price);
     void search(int);
@@ -77,16 +77,16 @@ public:
     time_t getCheckOutDate();
     void setCheckOutDate(time_t);
 
-    bool getIsSmoking();
-    void setIsSmoking(bool);
+    // bool getIsSmoking();
+    // void setIsSmoking(bool);
 
-    bool getStaffInCharge();
+    string getStaffInCharge();
     void setStaffInCharge(string);
 
     int getCapacity();
     void setCapacity(int);
 
-    int getPrice();
+    double getPrice();
     void setPrice(double);
 
     string getNameOcc();
