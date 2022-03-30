@@ -1,42 +1,45 @@
 #include <iostream>
 
 #include <stdexcept>
-#include "premiumRoom.h"
+#include "doubleRoom.h"
 
-PremiumRoom::PremiumRoom(int room_number, bool is_wifi, int capacity,
+DoubleRoom::DoubleRoom(int room_number, bool is_wifi, int capacity,
                          status status, bed_type bed_type,
-                         string staff_in_charge, string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
+                         string staff_in_charge, string name_occ, double price) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
 {
-    this->is_smoking = smoking;
 }
 
-void PremiumRoom::setIsSmoking(bool smoking)
-{
-    is_smoking = smoking;
-}
+// void DoubleRoom::set(bool smoking)
+// {
+//     is_smoking = smoking;
+// }
 
-bool PremiumRoom::getIsSmoking() const
-{
-    return is_smoking;
-}
+// bool DoubleRoom::getIsSmoking() const
+// {
+//     return is_smoking;
+// }
 
-PremiumRoom PremiumRoom::addRoom(int rno)
+DoubleRoom DoubleRoom::addRoom(int rno)
 {
     bool wifi;
+    int capacity;
 
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
-    PremiumRoom room(rno, wifi);
+    DoubleRoom room(rno, wifi);
+    
+    cout << "\nCapacity: ";
+    cin >> capacity;
+    room.setCapacity(capacity);
+    room.setPrice(200);
 
-    room.setPrice(300);
-
-    cout << "\nPremium Room Added Successfully!";
+    cout << "\nDouble Room Added Successfully!";
 
     return room;
 }
 
-void PremiumRoom::displayRoom()
+void DoubleRoom::displayRoom()
 {
     cout << "\nRoom Number: " << getRoomNo();
 
@@ -94,14 +97,5 @@ void PremiumRoom::displayRoom()
 
     cout << "\nStaff In Charge: " << getStaffInCharge();
     cout << "\nPrice: " << getPrice();
-    cout << "\nCapacity: " << getCapacity();
-
-    if (is_smoking)
-    {
-        cout << "\nSmoking allowed" << endl;
-    }
-    else
-    {
-        cout << "\nSmoking not allowed" << endl;
-    }
+    cout << "\nCapacity: " << getCapacity() << endl;
 }

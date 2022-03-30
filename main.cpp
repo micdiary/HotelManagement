@@ -7,10 +7,14 @@
 #include "hotelManagement.h"
 #include "room.h"
 #include "premiumRoom.h"
+#include "doubleRoom.h"
+#include "vipRoom.h"
 
 #include "hotelManagement.cpp"
 #include "room.cpp"
 #include "premiumRoom.cpp"
+#include "doubleRoom.cpp"
+#include "vipRoom.cpp"
 
 #define MAX 100
 
@@ -19,8 +23,6 @@ using namespace std;
 const int Room::default_capacity = 2;
 const status Room::default_status = status::status_clean;
 const bed_type Room::default_bed_type = bed_type::bed_type_single;
-const time_t Room::default_check_in_date = 0;
-const time_t Room::default_check_out_date = 0;
 const string Room::default_staff_in_charge = "NOBODY";
 const string Room::default_name_occ = "NULL";
 const double Room::default_price = 100;
@@ -28,14 +30,18 @@ const bool Room::default_is_smoking = false;
 const bool Room::default_is_wifi = false;
 
 const bool PremiumRoom::default_is_smoking = true;
+const bool VipRoom::default_is_smoking = true;
+
 
 int NO_OF_ROOMS = 0;
 Room rooms[50];
 PremiumRoom premium_rooms[50];
+DoubleRoom double_rooms[50];
+VipRoom vip_rooms[50];
 
 int main()
 {
-    class HotelManagement hm;
+    class HotelManagement hm; 
     int i, j, opt, rno;
     char ch;
     char pname[100];

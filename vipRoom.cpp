@@ -1,42 +1,46 @@
 #include <iostream>
 
 #include <stdexcept>
-#include "premiumRoom.h"
+#include "vipRoom.h"
 
-PremiumRoom::PremiumRoom(int room_number, bool is_wifi, int capacity,
-                         status status, bed_type bed_type,
-                         string staff_in_charge, string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
+VipRoom::VipRoom(int room_number, bool is_wifi, int capacity,
+                 status status, bed_type bed_type,
+                 string staff_in_charge, string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
 {
     this->is_smoking = smoking;
 }
 
-void PremiumRoom::setIsSmoking(bool smoking)
+void VipRoom::setIsSmoking(bool smoking)
 {
     is_smoking = smoking;
 }
 
-bool PremiumRoom::getIsSmoking() const
+bool VipRoom::getIsSmoking() const
 {
     return is_smoking;
 }
 
-PremiumRoom PremiumRoom::addRoom(int rno)
+VipRoom VipRoom::addRoom(int rno)
 {
     bool wifi;
+    int capacity;
 
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
-    PremiumRoom room(rno, wifi);
+    VipRoom room(rno, wifi);
 
-    room.setPrice(300);
+    cout << "\nCapacity: ";
+    cin >> capacity;
+    room.setCapacity(capacity);
+    room.setPrice(400);
 
-    cout << "\nPremium Room Added Successfully!";
+    cout << "\nVip Room Added Successfully!";
 
     return room;
 }
 
-void PremiumRoom::displayRoom()
+void VipRoom::displayRoom()
 {
     cout << "\nRoom Number: " << getRoomNo();
 

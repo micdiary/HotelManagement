@@ -6,7 +6,6 @@
 
 Room::Room(int room_number, bool is_wifi, int capacity,
            status status, bed_type bed_type,
-           time_t check_in_date, time_t check_out_date,
            string staff_in_charge, string name_occ, double price)
 {
     this->room_number = room_number;
@@ -14,8 +13,6 @@ Room::Room(int room_number, bool is_wifi, int capacity,
     this->capacity = capacity;
     this->st = status;
     this->bed = bed_type;
-    this->check_in_date = check_in_date;
-    this->check_out_date = check_out_date;
     this->staff_in_charge = staff_in_charge;
     this->name_occ = name_occ;
     this->price = price;
@@ -92,12 +89,14 @@ void Room::displayRoom()
     }
     };
 
-    cout << "\nCheck In Date: " << check_in_date;
-    cout << "\nCheck Out Date: " << check_out_date;
-
     cout << "\nStaff In Charge: " << staff_in_charge;
     cout << "\nPrice: " << price;
     cout << "\nCapacity: " << capacity << endl;
+}
+
+void Room::setPrice(double pr)
+{
+    this->price = pr;
 }
 
 void Room::setCapacity(int cap)
@@ -118,16 +117,6 @@ status Room::getRoomStatus()
 bed_type Room::getBedType()
 {
     return bed;
-}
-
-time_t Room::getCheckInDate()
-{
-    return check_in_date;
-}
-
-time_t Room::getCheckOutDate()
-{
-    return check_out_date;
 }
 
 string Room::getStaffInCharge()
