@@ -28,7 +28,7 @@ Room Room::addRoom(int rno)
     Room room(rno, wifi);
 
     room.setRoomStatus(room_status::status_clean);
-    
+
     cout << "\nRoom Added Successfully!";
 
     return room;
@@ -110,6 +110,11 @@ void Room::setCapacity(int cap)
     this->capacity = cap;
 }
 
+void Room::setNameOcc(string name)
+{
+    this->name_occ = name;
+}
+
 int Room::getRoomNo()
 {
     return room_number;
@@ -154,4 +159,91 @@ Room Room::operator*(double reservation_discount)
 {
     this->price = this->price * reservation_discount;
     return *this;
+}
+
+bool Room::checkPayment(string customer_name)
+{
+    int cust_id;
+    for (int i = 0; i < NO_OF_CUSTOMERS; i++)
+    {
+        if (customers[i].getName().compare(customer_name) == 0)
+        {
+            if (customers[i].getReservationStatus() == reservation_status::reservation_confirm)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void Room::checkIn(int rno, string customer_name, room_type r_type)
+{
+
+    bool check = checkPayment(customer_name);
+
+    if (check == true)
+    {
+        switch (r_type)
+        {
+        case room_type::room_base:
+        {
+            rooms[room_number].setRoomStatus(room_status::status_in_use);
+            rooms[room_number].setNameOcc(customer_name);
+            break;
+        }
+        case room_type::room_double:
+        {
+            double_rooms[room_number].setRoomStatus(room_status::status_in_use);
+            rooms[room_number].setNameOcc(customer_name);
+            break;
+        }
+        case room_type::room_premium:
+        {
+            premium_rooms[room_number].setRoomStatus(room_status::status_in_use);
+            rooms[room_number].setNameOcc(customer_name);
+            break;
+        }
+        case room_type::room_vip:
+        {
+            vip_rooms[room_number].setRoomStatus(room_status::status_in_use);
+            rooms[room_number].setNameOcc(customer_name);
+            break;
+        }
+        }
+    }
+    else{
+        //todo
+    }
+}
+
+void Room::checkOut(int rno, room_type r_type)
+{
+    switch (r_type)
+    {
+    case room_type::room_base:
+    {
+        rooms[room_number].setRoomStatus(room_status::status_clean);
+        rooms[room_number].setPrice(100);
+        break;
+    }
+    case room_type::room_double:
+    {
+        double_rooms[room_number].setRoomStatus(room_status::status_clean);
+        rooms[room_number].setPrice(200);
+        break;
+    }
+    case room_type::room_premium:
+    {
+        premium_rooms[room_number].setRoomStatus(room_status::status_clean);
+        rooms[room_number].setPrice(300);
+        break;
+    }
+    case room_type::room_vip:
+    {
+        vip_rooms[room_number].setRoomStatus(room_status::status_clean);
+        rooms[room_number].setPrice(400);
+        break;
+    }
+    }
 }

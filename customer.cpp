@@ -27,14 +27,14 @@ void Customer::registerCustomer()
 
     cout << "Enter Customer's Name: ";
     cin >> name;
-    cout << "\nWhat type of room would you like to book? \n1:Base \n2:Double \n3:Premium \n4:VIP\n";
+    cout << "\nWhat type of room would you like to book? \n1:Base \n2:Double \n3:Premium \n4:VIP\n 5:Exit\n";
     cin >> opt;
     switch (opt)
     {
     case 1:
         for (i = 0; i < NO_OF_ROOMS; i++)
         {
-            if (rooms[i].getRoomStatus() == room_status::status_clean)
+            if (rooms[i].getRoomStatus() == room_status::status_clean && rooms[i].getPrice() >= 80)
             {
                 room_number = rooms[i].getRoomNo();
                 r_type = room_type::room_base;
@@ -47,7 +47,7 @@ void Customer::registerCustomer()
         for (i = 0; i < NO_OF_ROOMS; i++)
         {
             // cout << double_rooms[i].getRoomStatus();
-            if (double_rooms[i].getRoomStatus() == room_status::status_clean)
+            if (double_rooms[i].getRoomStatus() == room_status::status_clean && double_rooms[i].getPrice() >= 160)
             {
                 room_number = double_rooms[i].getRoomNo();
                 r_type = room_type::room_double;
@@ -59,7 +59,7 @@ void Customer::registerCustomer()
     case 3:
         for (i = 0; i < NO_OF_ROOMS; i++)
         {
-            if (premium_rooms[i].getRoomStatus() == room_status::status_clean)
+            if (premium_rooms[i].getRoomStatus() == room_status::status_clean && premium_rooms[i].getPrice() >= 240)
             {
                 room_number = premium_rooms[i].getRoomNo();
                 r_type = room_type::room_premium;
@@ -71,7 +71,7 @@ void Customer::registerCustomer()
     case 4:
         for (i = 0; i < NO_OF_ROOMS; i++)
         {
-            if (vip_rooms[i].getRoomStatus() == room_status::status_clean)
+            if (vip_rooms[i].getRoomStatus() == room_status::status_clean && vip_rooms[i].getPrice() >= 320)
             {
                 room_number = vip_rooms[i].getRoomNo();
                 r_type = room_type::room_vip;
@@ -84,7 +84,8 @@ void Customer::registerCustomer()
         break;
     }
 
-    if (room_number == -1){
+    if (room_number == -1)
+    {
         return;
     }
 
@@ -193,10 +194,7 @@ void Customer::search(int customer_id)
         switch (opt)
         {
         case 1:
-            // addRoomsOption();
-            break;
-        case 2:
-            // c.registerCustomer();
+            payFees(customer_id);
             break;
         default:
             cout << "\nPlease Enter correct option";
@@ -220,7 +218,17 @@ reservation_status Customer::getReservationStatus()
     return reservation;
 }
 
+void Customer::setReservationStatus(reservation_status st)
+{
+    this->reservation = st;
+}
+
 room_type Customer::getRoomType()
 {
     return r_type;
+}
+
+void Customer::payFees(int customer_id)
+{
+    customers[customer_id].setReservationStatus(reservation_status::reservation_confirm);
 }

@@ -37,6 +37,7 @@ public:
 
     void search(int);
     void registerCustomer();
+    void payFees(int);
 
     string getName();
     void setName(string);

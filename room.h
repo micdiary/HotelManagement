@@ -4,7 +4,7 @@
 #define ROOM_H
 
 #include <string>
-
+#include "customer.h"
 using namespace std;
 
 enum class room_status
@@ -53,6 +53,11 @@ public:
     // class Customer cust;
     Room addRoom(int);
 
+    bool checkPayment(string);
+
+    void checkIn(int, string, room_type);
+    void checkOut(int, room_type);
+
     // void deleteRoom(int);
 
     void displayRoom();
@@ -85,6 +90,5 @@ public:
     void setIsWifi(bool);
 
     Room operator*(double);
-
 };
 #endif

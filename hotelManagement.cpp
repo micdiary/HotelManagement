@@ -14,7 +14,10 @@
 void HotelManagement::manageRooms()
 {
     Customer c;
-    int opt;
+    Room r;
+    int opt, rno;
+    string room_type_input, customer_name;
+    room_type r_type;
     do
     {
         system("cls");
@@ -33,6 +36,61 @@ void HotelManagement::manageRooms()
             break;
         case 2:
             c.registerCustomer();
+            break;
+        case 3:
+            cout << "\nRoom Number: ";
+            cin >> rno;
+
+            cout << "\nRoom Type: (base, double, premium, vip)";
+            cin >> room_type_input;
+
+            if (room_type_input.compare("base") == 0)
+            {
+                r_type = room_type::room_base;
+            }
+            else if (room_type_input.compare("double") == 0)
+            {
+                r_type = room_type::room_double;
+            }
+            else if (room_type_input.compare("premium") == 0)
+            {
+                r_type = room_type::room_premium;
+            }
+            else if (room_type_input.compare("vip") == 0)
+            {
+                r_type = room_type::room_vip;
+            }
+
+            cout << "\nInput Customer's Name: ";
+            cin >> customer_name;
+
+            r.checkIn(rno, customer_name, r_type);
+            break;
+        case 5:
+            cout << "\nRoom Number: ";
+            cin >> rno;
+
+            cout << "\nRoom Type: (base, double, premium, vip)";
+            cin >> room_type_input;
+
+            if (room_type_input.compare("base") == 0)
+            {
+                r_type = room_type::room_base;
+            }
+            else if (room_type_input.compare("double") == 0)
+            {
+                r_type = room_type::room_double;
+            }
+            else if (room_type_input.compare("premium") == 0)
+            {
+                r_type = room_type::room_premium;
+            }
+            else if (room_type_input.compare("vip") == 0)
+            {
+                r_type = room_type::room_vip;
+            }
+
+            r.checkOut(rno, r_type);
             break;
         default:
             cout << "\nPlease Enter correct option";

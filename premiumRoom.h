@@ -16,7 +16,6 @@ public:
     PremiumRoom(){};
     PremiumRoom(int, bool, const int = default_capacity, const room_status = default_status, const bed_type = default_bed_type,
                 const string = default_staff_in_charge, const string = default_name_occ, const double = default_price, const bool = default_is_smoking);
-
     PremiumRoom addRoom(int);
     void displayRoom();
 
