@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum class status
+enum class room_status
 {
     status_clean,
     status_booked,
@@ -29,7 +29,7 @@ private:
     bool is_wifi;
 
     int capacity;
-    status st;
+    room_status st;
     bed_type bed;
     string staff_in_charge;
     string name_occ;
@@ -37,7 +37,7 @@ private:
 
 public:
     const static int default_capacity;
-    const static status default_status;
+    const static room_status default_status;
     const static bed_type default_bed_type;
     const static double default_price;
     const static string default_staff_in_charge;
@@ -47,7 +47,7 @@ public:
     const static bool default_is_wifi;
 
     Room(){};
-    Room(int, bool, const int = default_capacity, const status = default_status, const bed_type = default_bed_type,
+    Room(int, bool, const int = default_capacity, const room_status = default_status, const bed_type = default_bed_type,
          const string = default_staff_in_charge, const string = default_name_occ, const double = default_price);
     void search(int);
     // class Customer cust;
@@ -60,8 +60,8 @@ public:
     int getRoomNo();
     void setRoomNo(int);
 
-    status getRoomStatus();
-    void setRoomStatus(status);
+    room_status getRoomStatus();
+    void setRoomStatus(room_status);
 
     bed_type getBedType();
     void setBedType(bed_type);
@@ -83,5 +83,8 @@ public:
 
     bool getIsWifi();
     void setIsWifi(bool);
+
+    Room operator*(double);
+
 };
 #endif

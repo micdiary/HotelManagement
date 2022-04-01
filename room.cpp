@@ -5,7 +5,7 @@
 #include <ctime>
 
 Room::Room(int room_number, bool is_wifi, int capacity,
-           status status, bed_type bed_type,
+           room_status status, bed_type bed_type,
            string staff_in_charge, string name_occ, double price)
 {
     this->room_number = room_number;
@@ -20,14 +20,15 @@ Room::Room(int room_number, bool is_wifi, int capacity,
 
 Room Room::addRoom(int rno)
 {
-    int opt;
     bool wifi;
-    int capacity;
 
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
     Room room(rno, wifi);
+
+    room.setRoomStatus(room_status::status_clean);
+    
     cout << "\nRoom Added Successfully!";
 
     return room;
@@ -48,22 +49,22 @@ void Room::displayRoom()
 
     switch (st)
     {
-    case status::status_clean:
+    case room_status::status_clean:
     {
         cout << "\nStatus: Cleaned";
         break;
     }
-    case status::status_booked:
+    case room_status::status_booked:
     {
         cout << "\nStatus: Booked";
         break;
     }
-    case status::status_in_use:
+    case room_status::status_in_use:
     {
         cout << "\nStatus: In Use";
         break;
     }
-    case status::status_maintenance:
+    case room_status::status_maintenance:
     {
         cout << "\nStatus: Maintenance in Progress";
         break;
@@ -94,6 +95,11 @@ void Room::displayRoom()
     cout << "\nCapacity: " << capacity << endl;
 }
 
+void Room::setRoomStatus(room_status status)
+{
+    this->st = status;
+}
+
 void Room::setPrice(double pr)
 {
     this->price = pr;
@@ -109,7 +115,7 @@ int Room::getRoomNo()
     return room_number;
 }
 
-status Room::getRoomStatus()
+room_status Room::getRoomStatus()
 {
     return st;
 }
@@ -142,4 +148,10 @@ string Room::getNameOcc()
 bool Room::getIsWifi()
 {
     return is_wifi;
+}
+
+Room Room::operator*(double reservation_discount)
+{
+    this->price = this->price * reservation_discount;
+    return *this;
 }

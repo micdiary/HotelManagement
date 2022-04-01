@@ -6,20 +6,22 @@
 #include "premiumRoom.h"
 #include "doubleRoom.h"
 #include "vipRoom.h"
+#include "customer.h"
 
 #include "common.h"
 #include <ctime>
 
 void HotelManagement::manageRooms()
 {
+    Customer c;
     int opt;
     do
     {
         system("cls");
         cout << "1. Add Rooms";
-        cout << "\n2. Check-In Room";
-        cout << "\n3. Available Rooms";
-        cout << "\n4. Search Customer";
+        cout << "\n2. Book Room";
+        cout << "\n3. Check-In Room";
+        cout << "\n4. Available Rooms";
         cout << "\n5. Check-Out Room";
         cout << "\n6. Exit";
         cout << "\n\nEnter Option: ";
@@ -28,6 +30,9 @@ void HotelManagement::manageRooms()
         {
         case 1:
             addRoomsOption();
+            break;
+        case 2:
+            c.registerCustomer();
             break;
         default:
             cout << "\nPlease Enter correct option";
@@ -43,7 +48,6 @@ void HotelManagement::addRoomsOption()
     PremiumRoom temp_premium_room;
     DoubleRoom temp_double_room;
     VipRoom temp_vip_room;
-
 
     do
     {

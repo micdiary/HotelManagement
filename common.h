@@ -8,6 +8,7 @@
 #include "premiumRoom.h"
 #include "doubleRoom.h"
 #include "vipRoom.h"
+#include "customer.h"
 
 using namespace std;
 
@@ -18,10 +19,9 @@ extern PremiumRoom premium_rooms[50];
 extern DoubleRoom double_rooms[50];
 extern VipRoom vip_rooms[50];
 
-class Common
-{
-public:
-    int NO_OF_GUESTS = 0;
-    
-};
+extern int NO_OF_CUSTOMERS;
+extern Customer customers[50];
+
+extern string RESERVATION_CODE;
+
 #endif

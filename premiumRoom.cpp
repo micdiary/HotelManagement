@@ -4,7 +4,7 @@
 #include "premiumRoom.h"
 
 PremiumRoom::PremiumRoom(int room_number, bool is_wifi, int capacity,
-                         status status, bed_type bed_type,
+                         room_status status, bed_type bed_type,
                          string staff_in_charge, string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
 {
     this->is_smoking = smoking;
@@ -30,6 +30,7 @@ PremiumRoom PremiumRoom::addRoom(int rno)
     PremiumRoom room(rno, wifi);
 
     room.setPrice(300);
+    room.setRoomStatus(room_status::status_clean);
 
     cout << "\nPremium Room Added Successfully!";
 
@@ -51,22 +52,22 @@ void PremiumRoom::displayRoom()
 
     switch (getRoomStatus())
     {
-    case status::status_clean:
+    case room_status::status_clean:
     {
         cout << "\nStatus: Cleaned";
         break;
     }
-    case status::status_booked:
+    case room_status::status_booked:
     {
         cout << "\nStatus: Booked";
         break;
     }
-    case status::status_in_use:
+    case room_status::status_in_use:
     {
         cout << "\nStatus: In Use";
         break;
     }
-    case status::status_maintenance:
+    case room_status::status_maintenance:
     {
         cout << "\nStatus: Maintenance in Progress";
         break;
@@ -104,4 +105,12 @@ void PremiumRoom::displayRoom()
     {
         cout << "\nSmoking not allowed" << endl;
     }
+}
+
+PremiumRoom PremiumRoom::operator*(double reservation_discount)
+{
+    double temp_price;
+    temp_price = this->getPrice() * reservation_discount;
+    this->setPrice(temp_price);
+    return *this;
 }
