@@ -23,9 +23,15 @@ bool PremiumRoom::getIsSmoking() const
 PremiumRoom PremiumRoom::addRoom(int rno)
 {
     bool wifi;
-
+    string err_message;
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
+
+    if (wifi != 1 || wifi != 0)
+    {
+        err_message = "Wrong Wifi Input. Please try again.";
+        throw(err_message);
+    }
 
     PremiumRoom room(rno, wifi);
 

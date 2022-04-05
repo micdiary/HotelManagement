@@ -15,9 +15,6 @@ public:
     DoubleRoom addRoom(int);
     void displayRoom();
 
-    // void setCapacity(int);
-    // int getCapacity() const;
-
     DoubleRoom operator*(double);
     
 };

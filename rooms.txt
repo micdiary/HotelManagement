@@ -1,0 +1,6 @@
+5
+base
+double
+premium
+vip
+vip

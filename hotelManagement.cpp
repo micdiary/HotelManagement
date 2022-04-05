@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <windows.h>
 
 #include "hotelManagement.h"
 #include "room.h"
@@ -16,7 +17,7 @@ void HotelManagement::manageRooms()
     Customer c;
     Room r;
     int opt, rno;
-    string room_type_input, customer_name;
+    string room_type_input, customer_name, message, err_message;
     room_type r_type;
     do
     {
@@ -41,7 +42,13 @@ void HotelManagement::manageRooms()
             cout << "\nRoom Number: ";
             cin >> rno;
 
-            cout << "\nRoom Type: (base, double, premium, vip)";
+            if (rno >= NO_OF_ROOMS || rno < 0)
+            {
+                err_message = "Wrong Room Number Input. Please try again.";
+                throw(err_message);
+            }
+
+            cout << "\nRoom Type (base, double, premium, vip): ";
             cin >> room_type_input;
 
             if (room_type_input.compare("base") == 0)
@@ -60,11 +67,26 @@ void HotelManagement::manageRooms()
             {
                 r_type = room_type::room_vip;
             }
+            else
+            {
+                err_message = "Wrong Room Type Input. Please try again.";
+                throw(err_message);
+            }
 
             cout << "\nInput Customer's Name: ";
             cin >> customer_name;
 
-            r.checkIn(rno, customer_name, r_type);
+            system("cls");
+            message = r.checkIn(rno, customer_name, r_type);
+            cout << message << endl;
+            Sleep(2000);
+            opt = 6;
+
+            break;
+        case 4:
+            r.getAvailRoom();
+            Sleep(5000);
+            opt = 6;
             break;
         case 5:
             cout << "\nRoom Number: ";
@@ -90,7 +112,11 @@ void HotelManagement::manageRooms()
                 r_type = room_type::room_vip;
             }
 
+            system("cls");
             r.checkOut(rno, r_type);
+            cout << "Room checked out successfully." << endl;
+            Sleep(2000);
+            opt = 6;
             break;
         default:
             cout << "\nPlease Enter correct option";

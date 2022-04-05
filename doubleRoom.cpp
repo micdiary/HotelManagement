@@ -4,31 +4,27 @@
 #include "doubleRoom.h"
 
 DoubleRoom::DoubleRoom(int room_number, bool is_wifi, int capacity,
-                         room_status status, bed_type bed_type,
-                         string staff_in_charge, string name_occ, double price) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
+                       room_status status, bed_type bed_type,
+                       string staff_in_charge, string name_occ, double price) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
 {
 }
-
-// void DoubleRoom::set(bool smoking)
-// {
-//     is_smoking = smoking;
-// }
-
-// bool DoubleRoom::getIsSmoking() const
-// {
-//     return is_smoking;
-// }
 
 DoubleRoom DoubleRoom::addRoom(int rno)
 {
     bool wifi;
     int capacity;
-
+    string err_message;
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
+    if (wifi != 1 || wifi != 0)
+    {
+        err_message = "Wrong Wifi Input. Please try again.";
+        throw(err_message);
+    }
+
     DoubleRoom room(rno, wifi);
-    
+
     cout << "\nCapacity: ";
     cin >> capacity;
     room.setCapacity(capacity);

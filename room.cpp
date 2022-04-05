@@ -3,6 +3,7 @@
 #include "common.h"
 #include "room.h"
 #include <ctime>
+#include <windows.h>
 
 Room::Room(int room_number, bool is_wifi, int capacity,
            room_status status, bed_type bed_type,
@@ -21,10 +22,16 @@ Room::Room(int room_number, bool is_wifi, int capacity,
 Room Room::addRoom(int rno)
 {
     bool wifi;
-
+    string err_message;
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
+    if (wifi != 1 || wifi != 0)
+    {
+        err_message = "Wrong Wifi Input. Please try again.";
+        throw(err_message);
+    }
+    
     Room room(rno, wifi);
 
     room.setRoomStatus(room_status::status_clean);
@@ -164,11 +171,15 @@ Room Room::operator*(double reservation_discount)
 bool Room::checkPayment(string customer_name)
 {
     int cust_id;
+    reservation_status st;
+    string name;
     for (int i = 0; i < NO_OF_CUSTOMERS; i++)
     {
-        if (customers[i].getName().compare(customer_name) == 0)
+        name = customers[i].getName();
+        st = customers[i].getReservationStatus();
+        if (name.compare(customer_name) == 0)
         {
-            if (customers[i].getReservationStatus() == reservation_status::reservation_confirm)
+            if (st == reservation_status::reservation_confirm)
             {
                 return true;
             }
@@ -177,10 +188,11 @@ bool Room::checkPayment(string customer_name)
     return false;
 }
 
-void Room::checkIn(int rno, string customer_name, room_type r_type)
+string Room::checkIn(int rno, string customer_name, room_type r_type)
 {
 
-    bool check = checkPayment(customer_name);
+    bool check;
+    check = checkPayment(customer_name);
 
     if (check == true)
     {
@@ -188,32 +200,35 @@ void Room::checkIn(int rno, string customer_name, room_type r_type)
         {
         case room_type::room_base:
         {
-            rooms[room_number].setRoomStatus(room_status::status_in_use);
-            rooms[room_number].setNameOcc(customer_name);
+            rooms[rno].setRoomStatus(room_status::status_in_use);
+            rooms[rno].setNameOcc(customer_name);
             break;
         }
         case room_type::room_double:
         {
-            double_rooms[room_number].setRoomStatus(room_status::status_in_use);
-            rooms[room_number].setNameOcc(customer_name);
+            double_rooms[rno].setRoomStatus(room_status::status_in_use);
+            double_rooms[rno].setNameOcc(customer_name);
             break;
         }
         case room_type::room_premium:
         {
-            premium_rooms[room_number].setRoomStatus(room_status::status_in_use);
-            rooms[room_number].setNameOcc(customer_name);
+            premium_rooms[rno].setRoomStatus(room_status::status_in_use);
+            premium_rooms[rno].setNameOcc(customer_name);
             break;
         }
         case room_type::room_vip:
         {
-            vip_rooms[room_number].setRoomStatus(room_status::status_in_use);
-            rooms[room_number].setNameOcc(customer_name);
+            vip_rooms[rno].setRoomStatus(room_status::status_in_use);
+            vip_rooms[rno].setNameOcc(customer_name);
             break;
         }
         }
+
+        return "Success. Customer checked in.";
     }
-    else{
-        //todo
+    else
+    {
+        return "Error. Customer not found.";
     }
 }
 
@@ -223,27 +238,51 @@ void Room::checkOut(int rno, room_type r_type)
     {
     case room_type::room_base:
     {
-        rooms[room_number].setRoomStatus(room_status::status_clean);
-        rooms[room_number].setPrice(100);
+        rooms[rno].setRoomStatus(room_status::status_clean);
+        rooms[rno].setPrice(100);
         break;
     }
     case room_type::room_double:
     {
-        double_rooms[room_number].setRoomStatus(room_status::status_clean);
-        rooms[room_number].setPrice(200);
+        double_rooms[rno].setRoomStatus(room_status::status_clean);
+        double_rooms[rno].setPrice(200);
         break;
     }
     case room_type::room_premium:
     {
-        premium_rooms[room_number].setRoomStatus(room_status::status_clean);
-        rooms[room_number].setPrice(300);
+        premium_rooms[rno].setRoomStatus(room_status::status_clean);
+        premium_rooms[rno].setPrice(300);
         break;
     }
     case room_type::room_vip:
     {
-        vip_rooms[room_number].setRoomStatus(room_status::status_clean);
-        rooms[room_number].setPrice(400);
+        vip_rooms[rno].setRoomStatus(room_status::status_clean);
+        vip_rooms[rno].setPrice(400);
         break;
     }
+    }
+}
+
+void Room::getAvailRoom()
+{
+    for (int i = 0; i < NO_OF_ROOMS; i++)
+    {
+        if (rooms[i].getRoomStatus() == room_status::status_clean && rooms[i].getPrice() == 100)
+        {
+            rooms[i].displayRoom();
+        }
+        else if (double_rooms[i].getRoomStatus() == room_status::status_clean && double_rooms[i].getPrice() == 200)
+        {
+            double_rooms[i].displayRoom();
+        }
+        else if (premium_rooms[i].getRoomStatus() == room_status::status_clean && premium_rooms[i].getPrice() == 300)
+        {
+            premium_rooms[i].displayRoom();
+        }
+        else if (vip_rooms[i].getRoomStatus() == room_status::status_clean && vip_rooms[i].getPrice() == 400)
+        {
+            vip_rooms[i].displayRoom();
+        }
+        Sleep(3000);
     }
 }

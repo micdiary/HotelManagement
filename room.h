@@ -50,17 +50,15 @@ public:
     Room(int, bool, const int = default_capacity, const room_status = default_status, const bed_type = default_bed_type,
          const string = default_staff_in_charge, const string = default_name_occ, const double = default_price);
     void search(int);
-    // class Customer cust;
     Room addRoom(int);
 
     bool checkPayment(string);
 
-    void checkIn(int, string, room_type);
+    string checkIn(int, string, room_type);
     void checkOut(int, room_type);
 
-    // void deleteRoom(int);
-
     void displayRoom();
+    void getAvailRoom();
 
     int getRoomNo();
     void setRoomNo(int);
@@ -70,9 +68,6 @@ public:
 
     bed_type getBedType();
     void setBedType(bed_type);
-
-    // bool getIsSmoking();
-    // void setIsSmoking(bool);
 
     string getStaffInCharge();
     void setStaffInCharge(string);

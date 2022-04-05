@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <windows.h>
 #include "common.h"
 #include "customer.h"
 #include "room.h"
@@ -46,7 +46,6 @@ void Customer::registerCustomer()
     case 2:
         for (i = 0; i < NO_OF_ROOMS; i++)
         {
-            // cout << double_rooms[i].getRoomStatus();
             if (double_rooms[i].getRoomStatus() == room_status::status_clean && double_rooms[i].getPrice() >= 160)
             {
                 room_number = double_rooms[i].getRoomNo();
@@ -130,13 +129,13 @@ void Customer::search(int customer_id)
     int opt;
     double price;
     string in_charge;
+    room_type type;
 
     int rno = customers[customer_id].getRoomNumber();
 
+    system("cls");
     do
     {
-        system("cls");
-
         cout << "Customer Name: " << customers[customer_id].getName() << endl;
         cout << "Room Number: " << rno << endl;
         cout << "Reservation Status: ";
@@ -191,13 +190,24 @@ void Customer::search(int customer_id)
         cout << "\n2. Exit";
         cout << "\n\nEnter Option: ";
         cin >> opt;
+        string _;
+
         switch (opt)
         {
         case 1:
+            system("cls");
             payFees(customer_id);
+            cout << "Payment for reservation is successful.";
+            cout << "\nRoom is now reserved.";
+            Sleep(2000);
+            opt = 2;
+            break;
+        case 2:
             break;
         default:
             cout << "\nPlease Enter correct option";
+            Sleep(1000);
+            system("cls");
             break;
         }
     } while (opt != 2);
@@ -230,5 +240,30 @@ room_type Customer::getRoomType()
 
 void Customer::payFees(int customer_id)
 {
+    int rno = customers[customer_id].getRoomNumber();
     customers[customer_id].setReservationStatus(reservation_status::reservation_confirm);
+
+    switch (customers[customer_id].getRoomType())
+    {
+    case room_type::room_base:
+    {
+        rooms[rno].setRoomStatus(room_status::status_booked);
+        break;
+    }
+    case room_type::room_double:
+    {
+        double_rooms[rno].setRoomStatus(room_status::status_booked);
+        break;
+    }
+    case room_type::room_premium:
+    {
+        premium_rooms[rno].setRoomStatus(room_status::status_booked);
+        break;
+    }
+    case room_type::room_vip:
+    {
+        vip_rooms[rno].setRoomStatus(room_status::status_booked);
+        break;
+    }
+    }
 }

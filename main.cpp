@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
-// #include <conio.h>
 
 #include "common.h"
 #include "hotelManagement.h"
@@ -10,6 +9,7 @@
 #include "doubleRoom.h"
 #include "vipRoom.h"
 #include "customer.h"
+#include "init.h"
 
 #include "hotelManagement.cpp"
 #include "room.cpp"
@@ -17,9 +17,9 @@
 #include "doubleRoom.cpp"
 #include "vipRoom.cpp"
 #include "customer.cpp"
+#include "init.cpp"
 
-#define MAX 100
-
+#define ESCAPE 27
 using namespace std;
 
 const int Room::default_capacity = 2;
@@ -49,29 +49,31 @@ string RESERVATION_CODE = "1009";
 int main()
 {
 
-    DoubleRoom temp_double_room(NO_OF_ROOMS, false, 5);
-    temp_double_room.setPrice(200);
-    temp_double_room.getRoomStatus();
-    temp_double_room.setRoomStatus(room_status::status_clean);
-    double_rooms[NO_OF_ROOMS] = temp_double_room;
-    NO_OF_ROOMS++;
+    Init init;
+    init.initializeRooms();
 
-    Room temp_room(NO_OF_ROOMS, false);
-    temp_room.setRoomStatus(room_status::status_clean);
-    rooms[NO_OF_ROOMS] = temp_room;
-    NO_OF_ROOMS++;
+    // DoubleRoom temp_double_room(NO_OF_ROOMS, false, 5);
+    // temp_double_room.setPrice(200);
+    // temp_double_room.setRoomStatus(room_status::status_clean);
+    // double_rooms[NO_OF_ROOMS] = temp_double_room;
+    // NO_OF_ROOMS++;
 
-    PremiumRoom temp_premium_room(NO_OF_ROOMS, false);
-    temp_premium_room.setPrice(300);
-    temp_premium_room.setRoomStatus(room_status::status_clean);
-    premium_rooms[NO_OF_ROOMS] = temp_premium_room;
-    NO_OF_ROOMS++;
+    // Room temp_room(NO_OF_ROOMS, false);
+    // temp_room.setRoomStatus(room_status::status_clean);
+    // rooms[NO_OF_ROOMS] = temp_room;
+    // NO_OF_ROOMS++;
 
-    VipRoom temp_vip_room(NO_OF_ROOMS, false, 20);
-    temp_vip_room.setRoomStatus(room_status::status_clean);
-    temp_vip_room.setPrice(350);
-    vip_rooms[NO_OF_ROOMS] = temp_vip_room;
-    NO_OF_ROOMS++;
+    // PremiumRoom temp_premium_room(NO_OF_ROOMS, false);
+    // temp_premium_room.setPrice(300);
+    // temp_premium_room.setRoomStatus(room_status::status_clean);
+    // premium_rooms[NO_OF_ROOMS] = temp_premium_room;
+    // NO_OF_ROOMS++;
+
+    // VipRoom temp_vip_room(NO_OF_ROOMS, false, 20);
+    // temp_vip_room.setRoomStatus(room_status::status_clean);
+    // temp_vip_room.setPrice(350);
+    // vip_rooms[NO_OF_ROOMS] = temp_vip_room;
+    // NO_OF_ROOMS++;
 
     Customer c_temp("mic", 3, room_type::room_vip, reservation_status::reservation_wait_list, "1009");
     customers[NO_OF_CUSTOMERS] = c_temp;
@@ -84,59 +86,71 @@ int main()
     HotelManagement hm;
     Customer c;
     int i, j, opt, c_opt, rno;
-    char ch;
-    char pname[100];
-
-    do
+    string err_message;
+    try
     {
-        system("cls");
-        cout << "######## Hotel Management #########\n";
-        cout << "\n1. Manage Rooms";
-        cout << "\n2. Search Customer";
-        cout << "\n3. Guest Summary Report";
-        cout << "\n4. Exit";
-        cout << "\n\nEnter Option: ";
-        cin >> opt;
-        switch (opt)
+        do
         {
-        case 1:
-            hm.manageRooms();
-            break;
-        case 2:
-            if (NO_OF_ROOMS == 0 || NO_OF_CUSTOMERS == 0)
+            system("cls");
+            cout << "######## Hotel Management #########\n";
+            cout << "\n1. Manage Rooms";
+            cout << "\n2. Search Customer";
+            cout << "\n3. Guest Summary Report";
+            cout << "\n4. Exit";
+            cout << "\n\nEnter Option: ";
+            cin >> opt;
+            switch (opt)
             {
-                cout << "\nRooms and Customers data is not available.\nPlease add the rooms and customers first.";
-                cin >> opt;
-            }
-            else
-            {
-                for (i = 0; i < NO_OF_CUSTOMERS; i++)
+            case 1:
+                hm.manageRooms();
+                break;
+            case 2:
+                if (NO_OF_ROOMS == 0 || NO_OF_CUSTOMERS == 0)
                 {
-                    cout << i << ". " << customers[i].getName() << endl;
+                    cout << "\nRooms and Customers data is not available.\nPlease add the rooms and customers first.";
+                    cin >> opt;
                 }
-                cout << "Which customer would you like to search? ";
-                cin >> c_opt;
-                c.search(c_opt);
+                else
+                {
+                    for (i = 0; i < NO_OF_CUSTOMERS; i++)
+                    {
+                        cout << i << ". " << customers[i].getName() << endl;
+                    }
+                    cout << "Which customer would you like to search? ";
+                    cin >> c_opt;
+
+                    if (c_opt >= NO_OF_CUSTOMERS || c_opt < 0)
+                    {
+                        err_message = "Wrong Cusomter ID Input. Please try again.";
+                        throw(err_message);
+                    }
+                    c.search(c_opt);
+                }
+                break;
+            case 3:
+                if (NO_OF_ROOMS == 0)
+                {
+                    cout << "\nRooms data is not available.\nPlease add the rooms first.";
+                    cin >> opt;
+                }
+                else
+                {
+                    // r.getAvailRoom();
+                }
+                break;
+            case 4:
+                init.saveData();
+                cout << "\nEXITING";
+                break;
+            default:
+                cout << "\nPlease Enter correct option";
+                break;
             }
-            break;
-        case 3:
-            if (NO_OF_ROOMS == 0)
-            {
-                cout << "\nRooms data is not available.\nPlease add the rooms first.";
-                cin >> opt;
-            }
-            else
-            {
-                // hm.getAvailRoom();
-            }
-            break;
-        case 4:
-            cout << "\nEXITING";
-            break;
-        default:
-            cout << "\nPlease Enter correct option";
-            break;
-        }
-    } while (opt != 4);
+        } while (opt != 4);
+    }
+    catch (string msg)
+    {
+        cout << msg << endl;
+    }
     return 0;
 }
