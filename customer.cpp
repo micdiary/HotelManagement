@@ -3,8 +3,10 @@
 #include "common.h"
 #include "customer.h"
 #include "room.h"
+#include "common.h"
 #include <ctime>
 #include <string>
+
 
 Customer::Customer(string name, int room_number, room_type r_type,
                    reservation_status status, string code)
@@ -91,7 +93,17 @@ void Customer::registerCustomer()
     cout << "Enter Reservation Code : ";
     cin >> code;
 
-    if (code.compare(RESERVATION_CODE) == 0)
+    bool discount_Code = false;
+    int n = sizeof(DISCOUNT_CODE) / sizeof(DISCOUNT_CODE[0]);
+    
+    for (int i = 0; i < n; i++) {
+        if (code == DISCOUNT_CODE[i]){
+            discount_Code = true;
+        }
+    }
+
+
+    if (discount_Code)
     {
         switch (r_type)
         {

@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include <algorithm>
+#include <vector>
+
 
 #include "common.h"
 #include "hotelManagement.h"
@@ -45,12 +48,15 @@ VipRoom vip_rooms[50];
 Customer customers[50];
 
 string RESERVATION_CODE = "1009";
+string DISCOUNT_CODE[3] = {"1009", "servicerecovery", "angrycustomer"};
+
 
 int main()
 {
-
+    
     Init init;
     init.initializeRooms();
+
 
     // DoubleRoom temp_double_room(NO_OF_ROOMS, false, 5);
     // temp_double_room.setPrice(200);

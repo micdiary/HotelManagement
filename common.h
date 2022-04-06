@@ -23,5 +23,8 @@ extern int NO_OF_CUSTOMERS;
 extern Customer customers[50];
 
 extern string RESERVATION_CODE;
+extern string DISCOUNT_CODE[3];
+
+
 
 #endif
