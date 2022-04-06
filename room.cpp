@@ -6,15 +6,13 @@
 #include <windows.h>
 
 Room::Room(int room_number, bool is_wifi, int capacity,
-           room_status status, bed_type bed_type,
-           string staff_in_charge, string name_occ, double price)
+           room_status status,
+         string name_occ, double price)
 {
     this->room_number = room_number;
     this->is_wifi = is_wifi;
     this->capacity = capacity;
     this->st = status;
-    this->bed = bed_type;
-    this->staff_in_charge = staff_in_charge;
     this->name_occ = name_occ;
     this->price = price;
 }
@@ -26,7 +24,7 @@ Room Room::addRoom(int rno)
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
-    if (wifi != 1 || wifi != 0)
+    if (wifi > 1 || wifi < 0)
     {
         err_message = "Wrong Wifi Input. Please try again.";
         throw(err_message);
@@ -78,26 +76,6 @@ void Room::displayRoom()
     }
     };
 
-    switch (bed)
-    {
-    case bed_type::bed_type_single:
-    {
-        cout << "\nBeds: Single";
-        break;
-    }
-    case bed_type::bed_type_double:
-    {
-        cout << "\nBeds: Double";
-        break;
-    }
-    case bed_type::bed_type_master:
-    {
-        cout << "\nBeds: Master";
-        break;
-    }
-    };
-
-    cout << "\nStaff In Charge: " << staff_in_charge;
     cout << "\nPrice: " << price;
     cout << "\nCapacity: " << capacity << endl;
 }
@@ -130,16 +108,6 @@ int Room::getRoomNo()
 room_status Room::getRoomStatus()
 {
     return st;
-}
-
-bed_type Room::getBedType()
-{
-    return bed;
-}
-
-string Room::getStaffInCharge()
-{
-    return staff_in_charge;
 }
 
 int Room::getCapacity()

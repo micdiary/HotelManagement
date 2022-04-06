@@ -4,8 +4,8 @@
 #include "vipRoom.h"
 
 VipRoom::VipRoom(int room_number, bool is_wifi, int capacity,
-                 room_status status, bed_type bed_type,
-                 string staff_in_charge, string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, bed_type, staff_in_charge, name_occ, price)
+                 room_status status,
+                 string name_occ, double price, bool smoking) : Room(room_number, is_wifi, capacity, status, name_occ, price)
 {
     this->is_smoking = smoking;
 }
@@ -29,7 +29,7 @@ VipRoom VipRoom::addRoom(int rno)
     cout << "\nWifi (0 = false, 1 = true): ";
     cin >> wifi;
 
-    if (wifi != 1 || wifi != 0)
+    if (wifi > 1 || wifi < 0)
     {
         err_message = "Wrong Wifi Input. Please try again.";
         throw(err_message);
@@ -85,26 +85,6 @@ void VipRoom::displayRoom()
     }
     };
 
-    switch (getBedType())
-    {
-    case bed_type::bed_type_single:
-    {
-        cout << "\nBeds: Single";
-        break;
-    }
-    case bed_type::bed_type_double:
-    {
-        cout << "\nBeds: Double";
-        break;
-    }
-    case bed_type::bed_type_master:
-    {
-        cout << "\nBeds: Master";
-        break;
-    }
-    };
-
-    cout << "\nStaff In Charge: " << getStaffInCharge();
     cout << "\nPrice: " << getPrice();
     cout << "\nCapacity: " << getCapacity();
 

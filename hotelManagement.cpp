@@ -22,6 +22,7 @@ void HotelManagement::manageRooms()
     do
     {
         system("cls");
+        cout << "######## Hotel Management #########\n";
         cout << "1. Add Rooms";
         cout << "\n2. Book Room";
         cout << "\n3. Check-In Room";
@@ -37,6 +38,9 @@ void HotelManagement::manageRooms()
             break;
         case 2:
             c.registerCustomer();
+            system("cls");
+            cout << "Room Booked Successfully.";
+            Sleep(2000);
             break;
         case 3:
             cout << "\nRoom Number: ";

@@ -7,7 +7,6 @@
 #include <ctime>
 #include <string>
 
-
 Customer::Customer(string name, int room_number, room_type r_type,
                    reservation_status status, string code)
 {
@@ -29,7 +28,7 @@ void Customer::registerCustomer()
 
     cout << "Enter Customer's Name: ";
     cin >> name;
-    cout << "\nWhat type of room would you like to book? \n1:Base \n2:Double \n3:Premium \n4:VIP\n 5:Exit\n";
+    cout << "\nWhat type of room would you like to book? \n1:Base \n2:Double \n3:Premium \n4:VIP\n5:Exit\n";
     cin >> opt;
     switch (opt)
     {
@@ -95,13 +94,14 @@ void Customer::registerCustomer()
 
     bool discount_Code = false;
     int n = sizeof(DISCOUNT_CODE) / sizeof(DISCOUNT_CODE[0]);
-    
-    for (int i = 0; i < n; i++) {
-        if (code == DISCOUNT_CODE[i]){
+
+    for (int i = 0; i < n; i++)
+    {
+        if (code == DISCOUNT_CODE[i])
+        {
             discount_Code = true;
         }
     }
-
 
     if (discount_Code)
     {
@@ -169,28 +169,21 @@ void Customer::search(int customer_id)
         case room_type::room_base:
         {
             price = rooms[rno].getPrice();
-            in_charge = rooms[rno].getStaffInCharge();
             break;
         }
         case room_type::room_double:
         {
             price = double_rooms[rno].getPrice();
-            in_charge = double_rooms[rno].getStaffInCharge();
-
             break;
         }
         case room_type::room_premium:
         {
             price = premium_rooms[rno].getPrice();
-            in_charge = premium_rooms[rno].getStaffInCharge();
-
             break;
         }
         case room_type::room_vip:
         {
             price = vip_rooms[rno].getPrice();
-            in_charge = vip_rooms[rno].getStaffInCharge();
-
             break;
         }
         }
@@ -202,7 +195,6 @@ void Customer::search(int customer_id)
         cout << "\n2. Exit";
         cout << "\n\nEnter Option: ";
         cin >> opt;
-        string _;
 
         switch (opt)
         {

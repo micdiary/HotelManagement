@@ -1,6 +1,8 @@
-5
+7
 base
 double
 premium
 vip
 vip
+double
+premium
