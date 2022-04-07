@@ -7,7 +7,7 @@
 
 Room::Room(int room_number, bool is_wifi, int capacity,
            room_status status,
-         string name_occ, double price)
+           string name_occ, double price)
 {
     this->room_number = room_number;
     this->is_wifi = is_wifi;
@@ -29,7 +29,7 @@ Room Room::addRoom(int rno)
         err_message = "Wrong Wifi Input. Please try again.";
         throw(err_message);
     }
-    
+
     Room room(rno, wifi);
 
     room.setRoomStatus(room_status::status_clean);
@@ -39,46 +39,7 @@ Room Room::addRoom(int rno)
     return room;
 }
 
-void Room::displayRoom()
-{
-    cout << "\nRoom Number: " << room_number;
 
-    if (is_wifi)
-    {
-        cout << "\nWifi provided";
-    }
-    else
-    {
-        cout << "\nWifi not provided";
-    }
-
-    switch (st)
-    {
-    case room_status::status_clean:
-    {
-        cout << "\nStatus: Cleaned";
-        break;
-    }
-    case room_status::status_booked:
-    {
-        cout << "\nStatus: Booked";
-        break;
-    }
-    case room_status::status_in_use:
-    {
-        cout << "\nStatus: In Use";
-        break;
-    }
-    case room_status::status_maintenance:
-    {
-        cout << "\nStatus: Maintenance in Progress";
-        break;
-    }
-    };
-
-    cout << "\nPrice: " << price;
-    cout << "\nCapacity: " << capacity << endl;
-}
 
 void Room::setRoomStatus(room_status status)
 {
@@ -231,25 +192,68 @@ void Room::checkOut(int rno, room_type r_type)
     }
 }
 
+ostream &operator<<(ostream &out, const Room &r)
+{
+    out << "\nRoom Number: " << r.room_number;
+
+    if (r.is_wifi)
+    {
+        out << "\nWifi provided";
+    }
+    else
+    {
+        out << "\nWifi not provided";
+    }
+
+    switch (r.st)
+    {
+    case room_status::status_clean:
+    {
+        out << "\nStatus: Cleaned";
+        break;
+    }
+    case room_status::status_booked:
+    {
+        out << "\nStatus: Booked";
+        break;
+    }
+    case room_status::status_in_use:
+    {
+        out << "\nStatus: In Use";
+        break;
+    }
+    case room_status::status_maintenance:
+    {
+        out << "\nStatus: Maintenance in Progress";
+        break;
+    }
+    };
+
+    out << "\nPrice: " << r.price;
+    out << "\nCapacity: " << r.capacity << endl;
+
+    return out;
+}
+
 void Room::getAvailRoom()
 {
     for (int i = 0; i < NO_OF_ROOMS; i++)
     {
         if (rooms[i].getRoomStatus() == room_status::status_clean && rooms[i].getPrice() == 100)
         {
-            rooms[i].displayRoom();
+            cout << rooms[i];
         }
         else if (double_rooms[i].getRoomStatus() == room_status::status_clean && double_rooms[i].getPrice() == 200)
         {
-            double_rooms[i].displayRoom();
+            cout << double_rooms[i];
         }
         else if (premium_rooms[i].getRoomStatus() == room_status::status_clean && premium_rooms[i].getPrice() == 300)
         {
-            premium_rooms[i].displayRoom();
+            cout << premium_rooms[i];
         }
         else if (vip_rooms[i].getRoomStatus() == room_status::status_clean && vip_rooms[i].getPrice() == 400)
         {
-            vip_rooms[i].displayRoom();
+            cout << vip_rooms[i];
         }
         Sleep(3000);
     }
