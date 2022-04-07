@@ -67,5 +67,7 @@ public:
     void setIsWifi(bool);
 
     Room operator*(double);
+
+    friend ostream & operator << (ostream &out, const Room &r);
 };
 #endif
