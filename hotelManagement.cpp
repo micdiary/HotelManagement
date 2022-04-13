@@ -152,25 +152,25 @@ void HotelManagement::addRoomsOption()
         case 1:
             temp_room = temp_room.addRoom(NO_OF_ROOMS);
             rooms[NO_OF_ROOMS] = temp_room;
-            rooms[NO_OF_ROOMS].displayRoom();
+            cout << rooms[NO_OF_ROOMS];
             NO_OF_ROOMS++;
             break;
         case 2:
             temp_premium_room = temp_premium_room.addRoom(NO_OF_ROOMS);
             premium_rooms[NO_OF_ROOMS] = temp_premium_room;
-            premium_rooms[NO_OF_ROOMS].displayRoom();
+            cout << premium_rooms[NO_OF_ROOMS];
             NO_OF_ROOMS++;
             break;
         case 3:
             temp_double_room = temp_double_room.addRoom(NO_OF_ROOMS);
             double_rooms[NO_OF_ROOMS] = temp_double_room;
-            double_rooms[NO_OF_ROOMS].displayRoom();
+            cout << double_rooms[NO_OF_ROOMS];
             NO_OF_ROOMS++;
             break;
         case 4:
             temp_vip_room = temp_vip_room.addRoom(NO_OF_ROOMS);
             vip_rooms[NO_OF_ROOMS] = temp_vip_room;
-            vip_rooms[NO_OF_ROOMS].displayRoom();
+            cout << vip_rooms[NO_OF_ROOMS];
             NO_OF_ROOMS++;
             break;
         default:
