@@ -192,20 +192,16 @@ int Customer::registerCustomer()
     }
     else if(r_type == room_type::room_double){
         if(noOfGuests > 2){
-            cout << "test 1" << endl;
             double_rooms[room_number] = double_rooms[room_number] + noOfGuests;
         }
     }
     else if(r_type == room_type::room_premium){
         if(noOfGuests > 3){
-                        cout << "test 2" << endl;
-
             premium_rooms[room_number] = premium_rooms[room_number] + noOfGuests;
         }
     }
     else if(r_type == room_type::room_vip){
         if(noOfGuests > 3){
-                        cout << "test 3" << endl;
             vip_rooms[room_number] = vip_rooms[room_number] + noOfGuests;
         }
     }
