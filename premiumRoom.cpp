@@ -38,7 +38,8 @@ PremiumRoom PremiumRoom::addRoom(int rno)
     room.setPrice(300);
     room.setRoomStatus(room_status::status_clean);
 
-    cout << "\nPremium Room Added Successfully!";
+    cout << "-------------------------------------" << "\nPremium Room Added Successfully!";
+
 
     return room;
 }
@@ -100,3 +101,11 @@ PremiumRoom PremiumRoom::operator*(double reservation_discount)
     this->setPrice(temp_price);
     return *this;
 }
+
+PremiumRoom PremiumRoom::operator+(int capacity_charge)
+{
+    int temp_capacity_price;
+    temp_capacity_price = this->getPrice() + (75 * (capacity_charge-3)); // extra price per guest
+    this->setPrice(temp_capacity_price);
+    return *this;
+} // if the customer is checking more than 3 guests, charge extra $75 per guest

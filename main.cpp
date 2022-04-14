@@ -9,6 +9,7 @@
 #include "vipRoom.cpp"
 #include "customer.cpp"
 #include "init.cpp"
+#include "staff.cpp"
 
 using namespace std;
 
@@ -36,14 +37,37 @@ Customer customers[50];
 
 string DISCOUNT_CODE[3] = {"1009", "servicerecovery", "angrycustomer"};
 
+Staff cleaners[5];
+Staff managers[5];
+
 int main()
 {
     Init init;
     init.initializeRooms();
 
+    Staff cleaners[5];
+    cleaners[0].setStaff("John", "cleaner", true);
+    cleaners[1].setStaff("Mary", "cleaner", true);
+    cleaners[2].setStaff("Tom", "cleaner", true);
+    cleaners[3].setStaff("Heather", "cleaner", true);
+    cleaners[4].setStaff("Trisha", "cleaner", true);
+    int arrayElements = sizeof(cleaners) / sizeof(cleaners[0]);
+	Array<Staff> arrayOfCleaners(cleaners, arrayElements); //class T = class Staff
+
+    Staff managers[5];
+    managers[0].setStaff("Ben", "manager", true);
+    managers[1].setStaff("Jerry", "manager", true);
+    managers[2].setStaff("Sheryl", "manager", true);
+    managers[3].setStaff("Bob", "manager", true);
+    managers[4].setStaff("Karen", "manager", true);
+    int managerElements = sizeof(managers) / sizeof(managers[0]);
+	Array<Staff> arrayOfManagers(managers, managerElements);
+
+
     HotelManagement hm;
     Customer c;
     int i, j, opt, c_opt, rno;
+    
     string err_message;
     try
     {
@@ -59,7 +83,7 @@ int main()
             switch (opt)
             {
             case 1:
-                hm.manageRooms();
+                hm.manageRooms(arrayOfCleaners, arrayOfManagers);
                 break;
             case 2:
                 if (NO_OF_ROOMS == 0 || NO_OF_CUSTOMERS == 0)

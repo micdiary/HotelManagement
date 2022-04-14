@@ -24,4 +24,8 @@ extern Customer customers[50];
 
 extern string DISCOUNT_CODE[3];
 
+class Staff;
+extern Staff cleaners[5];
+extern Staff managers[5];
+
 #endif

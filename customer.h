@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "staff.h"
+
 using namespace std;
 
 enum class reservation_status
@@ -30,13 +32,15 @@ private:
     room_type r_type;
     reservation_status reservation;
     string reservation_code;
+    string cleaner_in_charge;
+    string manager_in_charge;
 
 public:
     Customer(){};
     Customer(string, int, room_type, reservation_status, string);
 
     void search(int);
-    void registerCustomer();
+    int registerCustomer();
     void payFees(int);
 
     string getName();
@@ -53,5 +57,11 @@ public:
 
     room_type getRoomType();
     void setRoomType(room_type);
+
+    void setCleanerincharge(string);
+    string getCleanerincharge();
+
+    void setManagerincharge(string);
+    string getManagerincharge();
 };
 #endif

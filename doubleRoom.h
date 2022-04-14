@@ -16,6 +16,8 @@ public:
     void displayRoom();
 
     DoubleRoom operator*(double);
+
+    DoubleRoom operator+(int); ////// need changes
     
 };
 

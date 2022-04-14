@@ -25,6 +25,7 @@ public:
     bool getIsSmoking() const;
 
     VipRoom operator*(double);
+    VipRoom operator+(int);
 };
 
 #endif

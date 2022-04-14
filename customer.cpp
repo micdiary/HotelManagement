@@ -3,9 +3,11 @@
 #include "common.h"
 #include "customer.h"
 #include "room.h"
-#include "common.h"
 #include <ctime>
 #include <string>
+
+#include <stdlib.h>
+#include <ctime>
 
 Customer::Customer(string name, int room_number, room_type r_type,
                    reservation_status status, string code)
@@ -15,20 +17,111 @@ Customer::Customer(string name, int room_number, room_type r_type,
     this->r_type = r_type;
     this->reservation = status;
     this->reservation_code = code;
+    this->cleaner_in_charge = "";
+    this->manager_in_charge = "";
 }
 
-void Customer::registerCustomer()
+void Customer::search(int customer_id)
+{
+
+    int opt;
+    double price;
+    string in_charge;
+    room_type type;
+
+    int rno = customers[customer_id].getRoomNumber();
+
+    system("cls");
+    do
+    {
+        cout << "------------------------------------------" << endl;
+        cout << "Customer Name: " << customers[customer_id].getName() << endl;
+        cout << "Room Number: " << rno << endl;
+        cout << "Reservation Status: ";
+        switch (customers[customer_id].getReservationStatus())
+        {
+        case reservation_status::reservation_confirm:
+            cout << "Confirmed" << endl;
+            break;
+        case reservation_status::reservation_wait_list:
+            cout << "Wait List" << endl;
+            break;
+        case reservation_status::reservation_expire:
+            cout << "Expired" << endl;
+            break;
+        }
+
+        switch (customers[customer_id].getRoomType())
+        {
+        case room_type::room_base:
+        {
+            price = rooms[rno].getPrice();
+            break;
+        }
+        case room_type::room_double:
+        {
+            price = double_rooms[rno].getPrice();
+            break;
+        }
+        case room_type::room_premium:
+        {
+            price = premium_rooms[rno].getPrice();
+            break;
+        }
+        case room_type::room_vip:
+        {
+            price = vip_rooms[rno].getPrice();
+            break;
+        }
+        }
+
+        cout << "Price of Room: $ " << price << endl;
+        cout << "Cleaner in Charge: " << customers[customer_id].getCleanerincharge() << endl;
+        cout << "Manager in Charge: " << customers[customer_id].getManagerincharge() << endl;
+        cout << "------------------------------------------" << endl;
+        cout << "1. Pay ";
+        cout << "\n2. Exit";
+        cout << "\n\nEnter Option: ";
+        cin >> opt;
+
+        switch (opt)
+        {
+        case 1:
+            system("cls");
+            payFees(customer_id);
+            cout << "Payment for reservation is successful.";
+            cout << "\nRoom is now reserved.";
+            Sleep(2000);
+            opt = 2;
+            break;
+        case 2:
+            break;
+        default:
+            cout << "\nPlease Enter correct option";
+            Sleep(1000);
+            system("cls");
+            break;
+        }
+    } while (opt != 2);
+}
+
+int Customer::registerCustomer()
 {
     int opt, i;
     string name;
     int room_number = -1;
     room_type r_type;
     int temp_price;
+    int temp_custID;
     string code;
 
+    int noOfGuests;
+
+    cout << "------------------------------------------" << endl;
     cout << "Enter Customer's Name: ";
     cin >> name;
     cout << "\nWhat type of room would you like to book? \n1:Base \n2:Double \n3:Premium \n4:VIP\n5:Exit\n";
+    cout << "\nEnter room type (in number): ";
     cin >> opt;
     switch (opt)
     {
@@ -86,9 +179,40 @@ void Customer::registerCustomer()
 
     if (room_number == -1)
     {
-        return;
+        return -1;
     }
 
+    cout << "------------------------------------------" << endl;
+    cout << "Enter number of guests : ";
+    cin >> noOfGuests;
+    if (r_type == room_type::room_base){
+        if (noOfGuests > 1){
+            rooms[room_number] = rooms[room_number] + noOfGuests;
+        }
+    }
+    else if(r_type == room_type::room_double){
+        if(noOfGuests > 2){
+            cout << "test 1" << endl;
+            double_rooms[room_number] = double_rooms[room_number] + noOfGuests;
+        }
+    }
+    else if(r_type == room_type::room_premium){
+        if(noOfGuests > 3){
+                        cout << "test 2" << endl;
+
+            premium_rooms[room_number] = premium_rooms[room_number] + noOfGuests;
+        }
+    }
+    else if(r_type == room_type::room_vip){
+        if(noOfGuests > 3){
+                        cout << "test 3" << endl;
+            vip_rooms[room_number] = vip_rooms[room_number] + noOfGuests;
+        }
+    }
+    else{
+        rooms[room_number] = rooms[room_number];
+    }
+    cout << "------------------------------------------" << endl;
     cout << "Enter Reservation Code : ";
     cin >> code;
 
@@ -132,90 +256,12 @@ void Customer::registerCustomer()
 
     Customer c(name, room_number, r_type, reservation_status::reservation_wait_list, code);
     customers[NO_OF_CUSTOMERS] = c;
+    temp_custID = NO_OF_CUSTOMERS;
     NO_OF_CUSTOMERS++;
+    return temp_custID;
 }
 
-void Customer::search(int customer_id)
-{
 
-    int opt;
-    double price;
-    string in_charge;
-    room_type type;
-
-    int rno = customers[customer_id].getRoomNumber();
-
-    system("cls");
-    do
-    {
-        cout << "Customer Name: " << customers[customer_id].getName() << endl;
-        cout << "Room Number: " << rno << endl;
-        cout << "Reservation Status: ";
-        switch (customers[customer_id].getReservationStatus())
-        {
-        case reservation_status::reservation_confirm:
-            cout << "Confirmed" << endl;
-            break;
-        case reservation_status::reservation_wait_list:
-            cout << "Wait List" << endl;
-            break;
-        case reservation_status::reservation_expire:
-            cout << "Expired" << endl;
-            break;
-        }
-
-        switch (customers[customer_id].getRoomType())
-        {
-        case room_type::room_base:
-        {
-            price = rooms[rno].getPrice();
-            break;
-        }
-        case room_type::room_double:
-        {
-            price = double_rooms[rno].getPrice();
-            break;
-        }
-        case room_type::room_premium:
-        {
-            price = premium_rooms[rno].getPrice();
-            break;
-        }
-        case room_type::room_vip:
-        {
-            price = vip_rooms[rno].getPrice();
-            break;
-        }
-        }
-
-        cout << "Price of Room: " << price << endl;
-        cout << "In Charge: " << in_charge << endl;
-
-        cout << "1. Pay ";
-        cout << "\n2. Exit";
-        cout << "\n\nEnter Option: ";
-        cin >> opt;
-
-        switch (opt)
-        {
-        case 1:
-            system("cls");
-            payFees(customer_id);
-            cout << "Payment for reservation is successful.";
-            cout << "\nRoom is now reserved.";
-            Sleep(2000);
-            opt = 2;
-            break;
-        case 2:
-            break;
-        default:
-            cout << "\nPlease Enter correct option";
-            Sleep(1000);
-            system("cls");
-            break;
-        }
-    } while (opt != 2);
-}
 
 string Customer::getName()
 {
@@ -246,6 +292,8 @@ void Customer::payFees(int customer_id)
 {
     int rno = customers[customer_id].getRoomNumber();
     customers[customer_id].setReservationStatus(reservation_status::reservation_confirm);
+    //customers[customer_id].setCleanerincharge(string);
+
 
     switch (customers[customer_id].getRoomType())
     {
@@ -270,4 +318,23 @@ void Customer::payFees(int customer_id)
         break;
     }
     }
+}
+
+void Customer::setCleanerincharge(string cleanerincharge){
+    this->cleaner_in_charge = cleanerincharge;
+}
+
+string Customer::getCleanerincharge()
+{
+    return cleaner_in_charge;
+}
+
+
+void Customer::setManagerincharge(string managerincharge){
+    this->manager_in_charge = managerincharge;
+}
+
+string Customer::getManagerincharge()
+{
+    return manager_in_charge;
 }

@@ -5,12 +5,14 @@
 
 #include <string>
 
+#include "staff.h"
+
 using namespace std;
 
 class HotelManagement
 {
 public:
-    void manageRooms();
+    void manageRooms(Array<Staff>, Array<Staff>);
     void checkIn();
     void addRoomsOption();
     

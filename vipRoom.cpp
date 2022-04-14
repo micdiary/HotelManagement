@@ -42,7 +42,7 @@ VipRoom VipRoom::addRoom(int rno)
     room.setCapacity(capacity);
     room.setPrice(400);
     room.setRoomStatus(room_status::status_clean);
-
+    cout << "-------------------------------------"<< endl;
     cout << "\nVip Room Added Successfully!";
 
     return room;
@@ -105,3 +105,11 @@ VipRoom VipRoom::operator*(double reservation_discount)
     this->setPrice(temp_price);
     return *this;
 }
+
+VipRoom VipRoom::operator+(int capacity_charge)
+{
+    int temp_capacity_price;
+    temp_capacity_price = this->getPrice() + (90 * (capacity_charge-3)); // extra price per guest
+    this->setPrice(temp_capacity_price);
+    return *this;
+} // if the customer is checking more than 3 guests, charge extra $90 per guest

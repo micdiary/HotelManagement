@@ -14,7 +14,7 @@ DoubleRoom DoubleRoom::addRoom(int rno)
     bool wifi;
     int capacity;
     string err_message;
-    cout << "\nWifi (0 = false, 1 = true): ";
+    cout << "\nWifi? (0 = false, 1 = true): ";
     cin >> wifi;
 
     if (wifi > 1 || wifi < 0)
@@ -31,7 +31,7 @@ DoubleRoom DoubleRoom::addRoom(int rno)
     room.setPrice(200);
     room.setRoomStatus(room_status::status_clean);
 
-    cout << "\nDouble Room Added Successfully!";
+    cout << "-------------------------------------" << "\nDouble Room Added Successfully!";
 
     return room;
 }
@@ -75,6 +75,7 @@ void DoubleRoom::displayRoom()
 
     cout << "\nPrice: " << getPrice();
     cout << "\nCapacity: " << getCapacity() << endl;
+    cout << "-------------------------------------"<< endl;
 }
 
 DoubleRoom DoubleRoom::operator*(double reservation_discount)
@@ -84,3 +85,12 @@ DoubleRoom DoubleRoom::operator*(double reservation_discount)
     this->setPrice(temp_price);
     return *this;
 }
+
+DoubleRoom DoubleRoom::operator+(int capacity_charge)
+{
+    int temp_capacity_price;
+    temp_capacity_price = this->getPrice() + (60 * (capacity_charge-2)); // extra price per guest
+    this->setPrice(temp_capacity_price);
+    return *this;
+} // if the customer is checking more than 2 guests, charge extra $60 per guest
+

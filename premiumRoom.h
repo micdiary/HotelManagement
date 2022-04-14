@@ -23,6 +23,7 @@ public:
     bool getIsSmoking() const;
 
     PremiumRoom operator*(double);
+    PremiumRoom operator+(int);
 
 };
 

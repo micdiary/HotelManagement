@@ -7,7 +7,7 @@
 
 Room::Room(int room_number, bool is_wifi, int capacity,
            room_status status,
-           string name_occ, double price)
+         string name_occ, double price)
 {
     this->room_number = room_number;
     this->is_wifi = is_wifi;
@@ -21,7 +21,7 @@ Room Room::addRoom(int rno)
 {
     bool wifi;
     string err_message;
-    cout << "\nWifi (0 = false, 1 = true): ";
+    cout << "\nWifi? (0 = false, 1 = true): ";
     cin >> wifi;
 
     if (wifi > 1 || wifi < 0)
@@ -29,17 +29,58 @@ Room Room::addRoom(int rno)
         err_message = "Wrong Wifi Input. Please try again.";
         throw(err_message);
     }
-
+    
     Room room(rno, wifi);
 
     room.setRoomStatus(room_status::status_clean);
-
+    cout << "-------------------------------------"<< endl;
     cout << "\nRoom Added Successfully!";
 
     return room;
 }
 
+ostream &operator<<(ostream &out, const Room &r)
+{
+    out << "\nRoom Number: " << r.room_number;
 
+    if (r.is_wifi)
+    {
+        out << "\nWifi provided";
+    }
+    else
+    {
+        out << "\nWifi not provided";
+    }
+
+    switch (r.st)
+    {
+    case room_status::status_clean:
+    {
+        out << "\nStatus: Cleaned";
+        break;
+    }
+    case room_status::status_booked:
+    {
+        out << "\nStatus: Booked";
+        break;
+    }
+    case room_status::status_in_use:
+    {
+        out << "\nStatus: In Use";
+        break;
+    }
+    case room_status::status_maintenance:
+    {
+        out << "\nStatus: Maintenance in Progress";
+        break;
+    }
+    };
+
+    out << "\nPrice: " << r.price;
+    out << "\nCapacity: " << r.capacity << endl;
+
+    return out;
+}
 
 void Room::setRoomStatus(room_status status)
 {
@@ -96,6 +137,12 @@ Room Room::operator*(double reservation_discount)
     this->price = this->price * reservation_discount;
     return *this;
 }
+
+Room Room::operator+(double capacity_charge) 
+{
+    this->price = this->price + (50 * (capacity_charge-1)); // extra price per guest
+    return *this;
+} // if the customer is checking more than 1 guest, charge extra $50 per guest
 
 bool Room::checkPayment(string customer_name)
 {
@@ -163,6 +210,7 @@ string Room::checkIn(int rno, string customer_name, room_type r_type)
 
 void Room::checkOut(int rno, room_type r_type)
 {
+
     switch (r_type)
     {
     case room_type::room_base:
@@ -190,49 +238,6 @@ void Room::checkOut(int rno, room_type r_type)
         break;
     }
     }
-}
-
-ostream &operator<<(ostream &out, const Room &r)
-{
-    out << "\nRoom Number: " << r.room_number;
-
-    if (r.is_wifi)
-    {
-        out << "\nWifi provided";
-    }
-    else
-    {
-        out << "\nWifi not provided";
-    }
-
-    switch (r.st)
-    {
-    case room_status::status_clean:
-    {
-        out << "\nStatus: Cleaned";
-        break;
-    }
-    case room_status::status_booked:
-    {
-        out << "\nStatus: Booked";
-        break;
-    }
-    case room_status::status_in_use:
-    {
-        out << "\nStatus: In Use";
-        break;
-    }
-    case room_status::status_maintenance:
-    {
-        out << "\nStatus: Maintenance in Progress";
-        break;
-    }
-    };
-
-    out << "\nPrice: " << r.price;
-    out << "\nCapacity: " << r.capacity << endl;
-
-    return out;
 }
 
 void Room::getAvailRoom()

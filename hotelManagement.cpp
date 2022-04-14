@@ -12,13 +12,17 @@
 #include "common.h"
 #include <ctime>
 
-void HotelManagement::manageRooms()
+void HotelManagement::manageRooms(Array<Staff> arrayOfCleaners , Array<Staff> arrayOfManagers)
 {
     Customer c;
     Room r;
     int opt, rno;
     string room_type_input, customer_name, message, err_message;
     room_type r_type;
+    string cleaner;
+    string manager;
+    int temp_custID;
+    string temp_custName;
     do
     {
         system("cls");
@@ -37,7 +41,18 @@ void HotelManagement::manageRooms()
             addRoomsOption();
             break;
         case 2:
-            c.registerCustomer();
+            temp_custID = c.registerCustomer();
+
+            cleaner = arrayOfCleaners.getAvailableStaff();
+            cout << "Cleaner assigned: " << cleaner << endl;
+            // arrayOfCleaners.showList();
+            customers[temp_custID].setCleanerincharge(cleaner);
+
+            manager = arrayOfManagers.getAvailableStaff();
+            cout << "Manager assigned: " << manager << endl;
+            // arrayOfCleaners.showList();
+            customers[temp_custID].setManagerincharge(manager);
+
             system("cls");
             cout << "Room Booked Successfully.";
             Sleep(2000);
@@ -102,22 +117,45 @@ void HotelManagement::manageRooms()
             if (room_type_input.compare("base") == 0)
             {
                 r_type = room_type::room_base;
+                temp_custName = rooms[rno].getNameOcc();
             }
             else if (room_type_input.compare("double") == 0)
             {
                 r_type = room_type::room_double;
+                temp_custName = double_rooms[rno].getNameOcc();
             }
             else if (room_type_input.compare("premium") == 0)
             {
                 r_type = room_type::room_premium;
+                temp_custName = premium_rooms[rno].getNameOcc();
             }
             else if (room_type_input.compare("vip") == 0)
             {
                 r_type = room_type::room_vip;
+                temp_custName = vip_rooms[rno].getNameOcc();
             }
 
             system("cls");
             r.checkOut(rno, r_type);
+
+            for (int i = 0; i < NO_OF_CUSTOMERS; i++) {
+                if (temp_custName == customers[i].getName() ){
+                    temp_custID = i;
+                }
+            }
+
+            cleaner = customers[temp_custID].getCleanerincharge();
+            cout << "Cleaner deallocated: " << cleaner << endl;
+            customers[temp_custID].setCleanerincharge("");
+            arrayOfCleaners.setStaffAvailable(cleaner);
+            //arrayOfCleaners.showList();
+
+            manager = customers[temp_custID].getManagerincharge();
+            cout << "Manager deallocated: " << manager << endl;
+            customers[temp_custID].setManagerincharge("");
+            arrayOfManagers.setStaffAvailable(manager);
+            //arrayOfManagers.showList();
+
             cout << "Room checked out successfully." << endl;
             Sleep(2000);
             opt = 6;
