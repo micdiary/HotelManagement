@@ -1,11 +1,16 @@
 # HotelManagement
-ICT1009 OOP C++ 
+ICT1009 OOP C++ Final Project
 
-Features of Hotel Management to be implemented
-1) Authentication Feature 
-2) Setting Room Properties (Encapsulation)
-3) Searching for Customer Summary (Overriding)
-4) Fetching Room Properties (Overloading) (?)
-5) Fetching Room Status (Inheritance) 
-6) cout Room object details (cout operator overload) & Add price of room object with integer (+operator overload)
-7) Initializing different type of Staff to be assigned to customers who book a room and de-allocated when customer check-out (Array template class)
+Student | Contactable Email 
+ADWIN TAN YOU CHENG | 2101024@sit.singaporetech.edu.sg
+DANIAL HAZEEM BIN MOHAMED ALI | 2100807@sit.singaporetech.edu.sg
+LAW JUN HAO | 2101081@sit.singaporetech.edu.sg
+WEE YU XIANG | 1803002@sit.singaporetech.edu.sg
+MICHAEL RONNY CHANDIARY | 2101491@sit.singaporetech.edu.sg
+NINO JANSEN ILAGAN CASTILLO | 2100792@sit.singaporetech.edu.sg
+
+This program has been tested and compiled on VSCode using G++ compiler within the IDE itself. Testing of this code in other IDEs with other forms of compilers have not been done and is not guaranteed to work. The main flow of the application is compiled on main.cpp itself, compiling on other cpp files may not work or produce the results as indicated. 
+
+A guide to G++ compiler can be found here in this link: https://www.geeksforgeeks.org/compiling-with-g-plus-plus/
+A link to download VSCode (IDE) can be found here in this link: https://code.visualstudio.com/
+Guide on things done in this console line app with a short demo: https://youtu.be/3NsyiO15o7g
