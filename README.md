@@ -1,7 +1,7 @@
 # HotelManagement
 ICT1009 OOP C++ Final Project
 
-Student | Contactable Email 
+Student | Contactable Email
 ADWIN TAN YOU CHENG | 2101024@sit.singaporetech.edu.sg
 DANIAL HAZEEM BIN MOHAMED ALI | 2100807@sit.singaporetech.edu.sg
 LAW JUN HAO | 2101081@sit.singaporetech.edu.sg
